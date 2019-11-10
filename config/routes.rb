@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
+  get 'session/new'
+
   root 'static_pages#top'
   get '/signup', to: 'users#new'
-  resource :users
+  
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
+  
+  resources :users, expect: [:show]
 end
