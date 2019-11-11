@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       redirect_to root_url
+      remenber.user
       flash[:success] = "新規作成しました。"
     else
       render :new
