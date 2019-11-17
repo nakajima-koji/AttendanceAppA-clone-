@@ -29,7 +29,7 @@ module SessionsHelper
       user = User.find_by(id: user_id)
       if user && user.authenticated?(cookies[:remember_token])
         login users_path
-        @urrent_user = user
+        @current_user = user
       end
     end
   end
@@ -43,7 +43,7 @@ module SessionsHelper
   end
   
   def redirect_back_or(default_url)
-    redirect_to(session[:forwarding_url]) || default_url
+    redirect_to(session[:forwarding_url] || default_url)
     session.delete(:forwarding_url)
   end
   

@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update]
-  before_action :logged_in_user, only: [:index, :edit, :update]
+  before_action :set_user, only: [:edit, :update, :edit_basic_info, :update_basic_info]
+  before_action :logged_in_user, only: [:index, :edit, :update, :edit_basic_info, :update_basic_info]
   before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user, only: [:index, :destroy, :edit_basic_info, :update_basic_info]
   
   def index
     @users = User.paginate(page: params[:page])
@@ -12,7 +13,6 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.all
   end
 
   def create
@@ -40,13 +40,29 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    
+  end
+  
+  def edit_basic_info
+  end
+  
+  def update_basic_info
+    if @user.update_attributes(basic_info_params)
+      flash[:success] = "基本情報を更新しました。"
+      redirect_to users_url
+    else
+      flash[:danger] = "更新に失敗しました。"
+      render :edit_basic_info
+    end
   end
   
   private
     
     def user_params
       params.require(:user).permit(:name, :email, :department, :password, :password_confirmation)
+    end
+    
+    def basic_info_params
+      params.require(:user).permit(:basic_time, :work_time)
     end
     
     def set_user
