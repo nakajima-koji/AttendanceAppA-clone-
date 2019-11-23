@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :edit_basic_info, :update_basic_info]
+  before_action :set_user, only: [:show, :edit, :update, :edit_basic_info, :update_basic_info]
   before_action :logged_in_user, only: [:index, :edit, :update, :edit_basic_info, :update_basic_info]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: [:index, :destroy, :edit_basic_info, :update_basic_info]
+  before_action :set_one_month, only: :show
   
   def index
     @users = User.paginate(page: params[:page])
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
   end
   
   def show
+    @worked_sum = @attendance_systems.where.not(started_at: nil).count
   end
 
   def create
@@ -48,11 +50,10 @@ class UsersController < ApplicationController
   def update_basic_info
     if @user.update_attributes(basic_info_params)
       flash[:success] = "基本情報を更新しました。"
-      redirect_to users_url
     else
       flash[:danger] = "更新に失敗しました。"
-      render :edit_basic_info
     end
+    redirect_to users_url
   end
   
   private
