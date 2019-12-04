@@ -15,7 +15,7 @@
               <li><%= link_to "アカウント情報の更新", edit_user_path(current_user) %></li>
               <li class="divider"></li>
               <li><%= link_to "勤怠情報表示", user_path(current_user) %></li>
-              <li><%= link_to "勤怠情報編集", root_path %></li>
+              <li><%= link_to "勤怠情報編集", attendance_systems_edit_one_month_user_path(current_user) %></li>
               <li class="divider"></li>
               <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
             </ul>

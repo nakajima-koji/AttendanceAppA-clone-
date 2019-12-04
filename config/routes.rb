@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     member do
       get 'edit_basic_info'
       patch 'update_basic_info'
+      get 'attendance_systems/edit_one_month'
+      patch 'attendance_systems/update_one_month'
     end
     resources :attendance_systems, only: :update 
   end

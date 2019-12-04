@@ -1,15 +1,38 @@
 <% provide(:title, "User") %>
 
-<h1>ユーザー一覧</h1>
-<div class="col-md-10 col-md-offset-1">
-  <%= will_paginate %>
-  <table class="table table-condensed table-hover" id="table-uers">
-  
+<% if @users.search(search) %>
+  <h1>検索結果</h1>
+<% else %>
+  <h1>全てのユーザー</h1>
+<% end %>
+
+<div class="row">  
+  <div class="col-md-offset-8">
+    <%= form_tag(users_path, method: :get, class: "form-contrtol") do %>
+      <%= label_tag :name, "ユーザー名検索", class: "label-search" %>
+      <div class="input-group">
+        <%= text_field_tag :search, "", placeholder: "キーワードを入力...", class: "form-control" %>
+        <span class="input-group-btn">
+          <%= submit_tag '検索', :name => nil, class: "btn btn-primary" %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= will_paginate %>
+  <table class="table table-hover">
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.name, edit_user_path(user) %></td>
+        <td><%= link_to user.name, edit_user_path(user) %>｜
+            <%= link_to "基本情報編集", attendance_systems_update_one_month_user_path(user) %>
+            <% if current_user.admin? && !current_user?(user) %>
+              ｜<%= link_to "削除", user, method: :delete,
+                    data: { confirm: "削除してもよろしいですか？" },
+                    class: "" %>
+            <% end %>
+        </td>
       </tr>
     <% end %>
   </table>
-  <%= will_paginate %>
-</div>
+<%= will_paginate %>

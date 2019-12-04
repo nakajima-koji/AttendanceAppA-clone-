@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_action :set_one_month, only: :show
   
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.paginate(page: params[:page], per_page: 20).search(params[:search])
   end
   
   def new
@@ -42,6 +42,9 @@ class UsersController < ApplicationController
   end
   
   def destroy
+    @user.destroy
+    flash[:danger] = "ユーザーを削除しました。"
+    redirect_to users_url
   end
   
   def edit_basic_info
@@ -64,26 +67,5 @@ class UsersController < ApplicationController
     
     def basic_info_params
       params.require(:user).permit(:basic_time, :work_time)
-    end
-    
-    def set_user
-      @user = User.find(params[:id])
-    end
-    
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "ログインしてください。"
-        redirect_to login_url
-      end
-    end
-    
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to root_url unless current_user?(@user)
-    end
-    
-    def admin_user
-      redirect_to root_url unless current_user.admin?
     end
 end
