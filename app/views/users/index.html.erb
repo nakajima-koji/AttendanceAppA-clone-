@@ -1,6 +1,6 @@
 <% provide(:title, "User") %>
 
-<% if @users.search(search) %>
+<% if User.where(params[:name]) %>
   <h1>検索結果</h1>
 <% else %>
   <h1>全てのユーザー</h1>
@@ -11,7 +11,7 @@
     <%= form_tag(users_path, method: :get, class: "form-contrtol") do %>
       <%= label_tag :name, "ユーザー名検索", class: "label-search" %>
       <div class="input-group">
-        <%= text_field_tag :search, "", placeholder: "キーワードを入力...", class: "form-control" %>
+        <%= text_field_tag :search, params[:name], placeholder: "キーワードを入力...", class: "form-control" %>
         <span class="input-group-btn">
           <%= submit_tag '検索', :name => nil, class: "btn btn-primary" %>
         </span>
