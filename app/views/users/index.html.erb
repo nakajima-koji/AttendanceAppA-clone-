@@ -1,6 +1,6 @@
 <% provide(:title, "User") %>
 
-<% if User.where(params[:name]) %>
+<% if params[:name].present? %>
   <h1>検索結果</h1>
 <% else %>
   <h1>全てのユーザー</h1>
@@ -11,7 +11,7 @@
     <%= form_tag(users_path, method: :get, class: "form-contrtol") do %>
       <%= label_tag :name, "ユーザー名検索", class: "label-search" %>
       <div class="input-group">
-        <%= text_field_tag :search, params[:name], placeholder: "キーワードを入力...", class: "form-control" %>
+        <%= text_field_tag :name, params[:name], placeholder: "キーワードを入力...", class: "form-control" %>
         <span class="input-group-btn">
           <%= submit_tag '検索', :name => nil, class: "btn btn-primary" %>
         </span>
@@ -24,8 +24,8 @@
   <table class="table table-hover">
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.name, edit_user_path(user) %>｜
-            <%= link_to "基本情報編集", attendance_systems_update_one_month_user_path(user) %>
+        <td><%= link_to user.name, user_path(user) %>｜
+            <%= link_to "基本情報編集", attendance_systems_edit_one_month_user_path(user) %>
             <% if current_user.admin? && !current_user?(user) %>
               ｜<%= link_to "削除", user, method: :delete,
                     data: { confirm: "削除してもよろしいですか？" },

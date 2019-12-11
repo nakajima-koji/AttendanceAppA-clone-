@@ -1,48 +1,48 @@
 <% provide(:title, @user.name) %>
 <%= form_with(model: @user, url: attendance_systems_update_one_month_user_path(date: @first_day), local: true, method: :patch) do |f| %> 
-<div>
-  <h1>勤怠編集画面</h1>
-  <table class="table table-bordered table-consented table-hover" id="table-attendance">
-    <thead>
-      <tr>
-        <td>日付</td>
-        <td>曜日</td>
-        <td>出社</td>
-        <td>退社</td>
-        <td>在社時間</td>
-        <td>備考</td>
-      </tr>
-    </thead>
-  
-    <tbody>
-      <% @attendance_systems.each do |day| %>
-        <%= f.fields_for "attendance_systems[]", day do |attendance_system| %>
+  <div>
+    <h1>勤怠編集画面</h1>
+    <table class="table table-bordered table-consented table-hover" id="table-attendance">
+      <thead>
         <tr>
-          <td><%= l(day.worked_on,format: :short) %></td>
-          <td><%= $days_of_the_week[day.worked_on.wday] %></td>
-          <% if !current_user.admin? && (Date.current < day.worked_on) %>
-            <td><%= attendance_system.time_field :started_at, readonly: true, class: "form-control" %></td>
-            <td><%= attendance_system.time_field :finished_at, readonly: true, class: "form-control" %></td>
-          <% else %>
-            <td><%= attendance_system.time_field :started_at, class: "form-control" %></td>
-            <td><%= attendance_system.time_field :finished_at, class: "form-control" %></td>
-          <% end %>
-          <td>
-            <% if day.started_at.present? && day.finished_at.present? %>
-              <%= str_times = working_times(day.started_at, day.finished_at) %>
-              <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
-            <% end %>
-          </td>
-          <td><%= day.note %></td>
+          <td>日付</td>
+          <td>曜日</td>
+          <td>出社</td>
+          <td>退社</td>
+          <td>在社時間</td>
+          <td>備考</td>
         </tr>
+      </thead>
+  
+      <tbody>
+        <% @attendance_systems.each do |day| %>
+          <%= f.fields_for "attendance_systems[]", day do |attendance_system| %>
+          <tr>
+            <td><%= l(day.worked_on,format: :short) %></td>
+            <td><%= $days_of_the_week[day.worked_on.wday] %></td>
+            <% if !current_user.admin? && (Date.current < day.worked_on) %>
+              <td><%= attendance_system.time_field :started_at, readonly: true, class: "form-control" %></td>
+              <td><%= attendance_system.time_field :finished_at, readonly: true, class: "form-control" %></td>
+            <% else %>
+              <td><%= attendance_system.time_field :started_at, class: "form-control" %></td>
+              <td><%= attendance_system.time_field :finished_at, class: "form-control" %></td>
+            <% end %>
+            <td>
+              <% if day.started_at.present? && day.finished_at.present? %>
+                <%= str_times = working_times(day.started_at, day.finished_at) %>
+                <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
+              <% end %>
+            </td>
+            <td><%= day.note %></td>
+          </tr>
+          <% end %>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
   
   <div class="center col-lg-offset-3">
     <%= link_to "キャンセル", user_path(date: @first_day), class: "btn btn-default btn-lg col-md-4 btn-edit-one-month" %>
     <%= f.submit "編集を保存する", class: "btn btn-default btn-lg col-md-4 btn-edit-one-month" %>
   </div>
-</div>
 <% end %>

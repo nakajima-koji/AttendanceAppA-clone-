@@ -1,5 +1,5 @@
 class AttendanceSystemsController < ApplicationController
-  before_action :set_user, only: :edit_one_month
+  before_action :set_user, only: [:edit_one_month, :update_one_month]
   before_action :logged_in_user, only: [:update, :edit_one_month]
   before_action :admin_or_correct_user, only: [:update, :edit_one_month, :update_one_month]
   before_action :set_one_month, only: :edit_one_month
@@ -37,7 +37,6 @@ class AttendanceSystemsController < ApplicationController
     end
     flash[:success] = "１月分の勤怠情報を更新しました。"
     redirect_to user_path(date: params[:date])
-    
   rescue ActiveRecord::RecordInvalid
     flash[:danger] = "無効な入力データがあったため、更新をキャンセルしました。"
     redirect_to attendance_systems_edit_one_month_user_path(date: params[:date])

@@ -45,11 +45,7 @@ class User < ApplicationRecord
     update_attribute(:remember_digest,nil)
   end
   
-  def self.search(search) #ここでのself.はUser.を意味する
-    if search
-      where(['name LIKE ?', "%#{search}%"])
-    else
-      all
-    end
-  end
+  scope :get_by_name, ->(name) {
+  where("name like ?", "%#{name}%")
+  }
 end
