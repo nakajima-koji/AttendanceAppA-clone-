@@ -33,7 +33,7 @@
                 <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
               <% end %>
             </td>
-            <td><%= day.note %></td>
+            <td><%= attendance_system.text_field :note, class: "form-control" %></td>
           </tr>
           <% end %>
         <% end %>
