@@ -45,4 +45,12 @@ class ApplicationController < ActionController::Base
     flash[:danger] = "ページ所得に失敗しました。再アクセスしてください。"
     redirect_to root_url
   end
+  
+  def admin_or_correct_user
+    @user = User.find(params[:user_id]) if @user.blank?
+    unless current_user?(@user) || current_user.admin?
+     flash[:success] = "編集権限がありません"
+     redirect_to(root_url)
+    end
+  end
 end
