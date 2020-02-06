@@ -1,4 +1,6 @@
 module AttendanceSystemsHelper
+  require "date"
+  
   def working_times(start, finish)
     format("%.2f", (((finish - start) / 60) / 60.0))
   end
@@ -13,7 +15,7 @@ module AttendanceSystemsHelper
   
   def attendance_systems_invalid?
     attendance_systems = true
-      attendance_systems_params.each do |id,item|
+      attendance_systems_params.each do |id,item,day|
         if item[:started_at].blank? && item[:finished_at].blank?
           next
         elsif item[:started_at].blank? || item[:finished_at].blank?
