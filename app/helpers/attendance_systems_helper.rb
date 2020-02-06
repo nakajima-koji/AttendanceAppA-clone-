@@ -24,9 +24,6 @@ module AttendanceSystemsHelper
         elsif item[:started_at] > item[:finished_at]
           attendance_systems = false
           break
-        else
-          attendance_systems = true
-          break
         end
       end
     return attendance_systems
