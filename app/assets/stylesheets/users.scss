@@ -35,6 +35,16 @@
   margin-bottom: 5px;
 }
 
+#table-overtime {
+  th {
+    vertical-align: middle;
+    text-align: center;
+  }
+  td {
+    vertical-align: middle;
+    text-align: center;
+  }
+}
 
 #table-attendances {
   th {
@@ -65,3 +75,9 @@
 .dropdown-superior {
   margin-bottom: 10px;
 }
+
+.overtime-data {
+  display: inline-block;
+  width: auto;
+}
+

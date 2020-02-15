@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     member do
       get 'edit_basic_info'
       patch 'update_basic_info'
+      get 'edit_overtime_application'
+      patch 'update_overtime_application'
       get 'attendance_systems/edit_one_month'
       patch 'attendance_systems/update_one_month'
     end

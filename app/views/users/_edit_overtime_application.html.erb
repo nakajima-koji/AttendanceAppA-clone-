@@ -1,0 +1,57 @@
+<% provide(:class_text, 'overtime-application') %>
+<% provide(:button_text, '更新') %>
+
+<%= form_with(model: @user, url: update_overtime_application_user_path(@user, @attendance_systems), local: true, method: :patch) do |f| %>
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h2 class="modal-title">【残業申請】</h2>
+    </div>
+   
+    <div class="modal-body">
+      <table class="table table-bordered tavle-hover tbody-light" id="table-overtime">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>曜日</th>
+            <th>終了予定時間</th>
+            <th>翌日</th>
+            <th>業務処理内容</th>
+            <th>指示者確認</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+            <tr>
+              <td><%= l(@attendance_systems.worked_on, format: :short) %></td>
+              <td class=
+                <% if @attendance_systems.worked_on.wday == 0 %>
+                  <%= "text-danger" %>
+                <% elsif @attendance_systems.worked_on.wday == 6 %>
+                  <%= "text-primary" %>
+                <% else %>
+                  <%= "text-dark" %>
+                <% end %>>
+                <%= $days_of_the_week[@attendance_systems.worked_on.wday] %>
+              </td>
+              <td>
+                <%= f.time_select :designated_work_end_time, {include_blank: true, default: @attendance_systems.designated_work_end_time, minute_step: 15 }, value: "%H:%M" %>
+              </td>
+              <td><%= f.check_box :next_day %> </td>
+              <td><%= f.text_field :process, class: "form-control" %></td>
+              <td></td>
+            </tr>
+         
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="modal-footer">
+      <%= f.submit "変更を送信する", class: "btn btn-primary btn-lg btn-#{yield(:class_text)} form-control" %>
+    </div>
+    <% end %>
+  </div>
+</div>

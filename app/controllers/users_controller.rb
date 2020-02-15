@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info,
+                                        :edit_overtime_application, :update_overtime_application]
   before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: [:index, :destroy, :edit_basic_info, :update_basic_info]
-  before_action :admin_or_correct_user, only: :show
-  before_action :set_one_month, only: :show
+  before_action :admin_user, only: [:index, :destroy]
+  before_action :admin_or_correct_user, only: [:show]
+  before_action :set_one_month, only: [:show]
   
   def index
     @users = User.paginate(page: params[:page], per_page: 20)
@@ -62,6 +63,14 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
+  def edit_overtime_application
+    @attendance_systems = AttendanceSystem.find(params[:id])
+    @user = User.find(@attendance_systems.user_id)
+  end
+  
+  def update_overtime_application
+  end
+  
   private
     
     def user_params
@@ -71,4 +80,11 @@ class UsersController < ApplicationController
     def basic_info_params
       params.require(:user).permit(:basic_time, :work_time)
     end
+    
+    def edit_overtime_application_params
+      params.require(:user).permit(attendance_systems: [:designated_work_end_time,
+                                                        :instructer_confirmation,
+                                                        :process])[:attendance_systems]
+    end
+   
 end

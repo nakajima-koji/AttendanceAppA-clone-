@@ -85,7 +85,9 @@
     <tbody>
       <% @attendance_systems.each do |day| %>
         <tr>
-          <td><%= link_to "残業申請", "#", class: "btn btn-primary btn-default" %></td>
+          <td><%= link_to "残業申請", edit_overtime_application_user_path(day),
+                  remote: true, class: "btn btn-primary btn-default" %>
+          </td>
           <td><%= l(day.worked_on, format: :short) %></td>
           <td class=
             <% if day.worked_on.wday == 0  %>
@@ -143,3 +145,5 @@
   </table>
 </div>
 </div>
+
+<div id="edit-overtime-application" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
