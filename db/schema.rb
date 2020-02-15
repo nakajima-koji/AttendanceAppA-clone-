@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200214095930) do
+ActiveRecord::Schema.define(version: 20200215053954) do
 
   create_table "attendance_systems", force: :cascade do |t|
     t.date "worked_on"
@@ -40,6 +40,9 @@ ActiveRecord::Schema.define(version: 20200214095930) do
     t.datetime "work_time", default: "2020-02-12 22:30:00"
     t.string "remember_digest"
     t.boolean "superior", default: false
+    t.integer "employee_number"
+    t.string "uid"
+    t.string "affiliation"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

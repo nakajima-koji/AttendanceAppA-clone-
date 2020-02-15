@@ -14,6 +14,11 @@ class User < ApplicationRecord
   validates :basic_time, presence: true
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  validates :affiliation, presence: true, length: { in: 2..50 }, allow_blank: true
+  validates :uid, presence: true, length: { maximum: 8 }, 
+                                 uniqueness: true
+  validates :employee_number, presence: true,
+                              uniqueness: true
  
   
    # 渡された文字列のハッシュ値を返します。
