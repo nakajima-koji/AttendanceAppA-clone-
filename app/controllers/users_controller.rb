@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info,
                                         :edit_overtime_application, :update_overtime_application]
   before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: [:index, :destroy]
+  before_action :admin_user, only: [:index, :update, :destroy]
   before_action :admin_or_correct_user, only: [:show]
   before_action :set_one_month, only: [:show]
   
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       @users = @users.get_by_name params[:name]
     end
     if params[:id].present?
-      @user = User.find(params[:id])
+      @user = User.find_by(id: @users.id)
     else
       @user = User.new
     end
