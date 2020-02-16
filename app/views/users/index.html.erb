@@ -23,7 +23,16 @@
 </div>
 
 <div class="row">
-  <div class="col-md-4 col-md-offset-1">
+  <div class="col-md-4">
+    <%= form_tag(import_users_path, multipart: true) do %>
+      <div class="input-group">
+        <span class="input-group-btn">
+          <%= label_tag :file, "ファイルを選択", class: "btn btn-default" %>
+        </span>
+          <%= file_field_tag :file, class: "field-file form-control", style: "display: none;"  %>
+      </div>
+      <%= submit_tag "CSVをインポート", class: "btn btn-primary form-control" %>
+    <% end %>
   </div>
 </div>
 

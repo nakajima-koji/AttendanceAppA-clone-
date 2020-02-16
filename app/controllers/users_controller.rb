@@ -76,6 +76,11 @@ class UsersController < ApplicationController
   def update_overtime_application
   end
   
+  def import
+    User.import(params[:file])
+    redirect_to users_url
+  end
+  
   private
     
     def user_params
