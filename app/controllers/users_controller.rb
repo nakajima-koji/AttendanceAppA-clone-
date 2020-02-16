@@ -12,6 +12,11 @@ class UsersController < ApplicationController
     if params[:name].present?
       @users = @users.get_by_name params[:name]
     end
+    if params[:id].present?
+      @user = User.find(params[:id])
+    else
+      @user = User.new
+    end
   end
   
   def new
@@ -37,11 +42,11 @@ class UsersController < ApplicationController
   end
   
   def update
-    if @user.update_attributes(user_params)
+    if user.update_attributes(user_params)
       flash[:success] = "アカウント情報を更新しました。"
-      redirect_to root_url
+      redirect_to users_url
     else
-      render :edit
+      render :index
     end
   end
   
@@ -86,5 +91,4 @@ class UsersController < ApplicationController
                                                         :instructer_confirmation,
                                                         :process])[:attendance_systems]
     end
-   
 end
