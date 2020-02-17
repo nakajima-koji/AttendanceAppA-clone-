@@ -1,6 +1,5 @@
 <%= form_with(model: user, url: user_url(user), method: :patch, local: true) do |f| %>
   <%= render 'shared/error_messages', { user: user } %>
-  <%= f.fields_for "attendance_systems[]", user do |attendance_system| %>
   
   <%= f.label :name, class: "label-#{yield(:class_text)}" %>
   <%= f.text_field :name, class: "form-control" %>
@@ -27,10 +26,10 @@
   <%= f.time_field :basic_time, class: "form-control" %>
   
   <%= f.label :designated_work_start_time, class: "label-#{yield(:class_text)}" %>
-  <%= f.attendance_system.time_field :designated_work_start_time, class: "form-control" %>
+  <%= f.time_field :designated_work_start_time, class: "form-control" %>
   
   <%= f.label :designated_work_end_time, class: "label-#{yield(:class_text)}" %>
-  <%= attendance_system.time_field :designated_work_end_time, class: "form-control" %>
+  <%= f.time_field :designated_work_end_time, class: "form-control" %>
         
   <%= f.submit "#{yield(:button_text)}", class: "btn btn-primary btn-block btn-#{yield(:class_text)}" %>
 <% end %>

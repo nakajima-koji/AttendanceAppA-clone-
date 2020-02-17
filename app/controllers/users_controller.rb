@@ -43,10 +43,11 @@ class UsersController < ApplicationController
   
   def update
     @users = User.paginate(page: params[:page], per_page: 20)
-    if @user.update_attributes(user_params, attendance_system_params)
+    if @user.update_attributes(user_params)
       flash[:success] = "アカウント情報を更新しました。"
       redirect_to users_url
     else
+      flash[:danger] = "更新に失敗しました。"
       render :index
     end
   end
@@ -86,15 +87,11 @@ class UsersController < ApplicationController
     
     def user_params
       params.require(:user).permit(:name, :email, :affiliation, :password, :password_confirmation,
-                                   :uid, :employee_number )
+                                   :uid, :employee_number, :designated_work_end_time, :designated_work_start_time )
     end
     
     def basic_info_params
       params.require(:user).permit(:basic_time, :work_time)
-    end
-    
-    def attendance_system_params
-      params.require(:attendance_system).permit(attendance_systems: [:designated_work_end_time,:designated_work_start_time])[:attendance_systems]
     end
     
     def edit_overtime_application_params

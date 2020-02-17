@@ -19,6 +19,8 @@ class User < ApplicationRecord
                                  uniqueness: true
   validates :employee_number, presence: true,
                               uniqueness: true
+  validates :designated_work_end_time, presence: true, allow_blank: true
+  validates :designated_work_start_time, presence:true, allow_blank: true
  
   
    # 渡された文字列のハッシュ値を返します。
