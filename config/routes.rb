@@ -17,6 +17,6 @@ Rails.application.routes.draw do
       get 'attendance_systems/edit_one_month'
       patch 'attendance_systems/update_one_month'
     end
-    resources :attendance_systems, only: :update 
+    resources :attendance_systems, only: [:index, :update] 
   end
 end

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info,
                                         :edit_overtime_application, :update_overtime_application]
   before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: [:index, :update, :destroy]
+  before_action :admin_user, only: [:update, :destroy]
   before_action :admin_or_correct_user, only: [:show]
   before_action :set_one_month, only: [:show]
   
@@ -42,7 +42,8 @@ class UsersController < ApplicationController
   end
   
   def update
-    if user.update_attributes(user_params)
+    @users = User.paginate(page: params[:page], per_page: 20)
+    if @user.update_attributes(user_params, attendance_system_params)
       flash[:success] = "アカウント情報を更新しました。"
       redirect_to users_url
     else
@@ -84,11 +85,16 @@ class UsersController < ApplicationController
   private
     
     def user_params
-      params.require(:user).permit(:name, :email, :department, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :affiliation, :password, :password_confirmation,
+                                   :uid, :employee_number )
     end
     
     def basic_info_params
       params.require(:user).permit(:basic_time, :work_time)
+    end
+    
+    def attendance_system_params
+      params.require(:attendance_system).permit(attendance_systems: [:designated_work_end_time,:designated_work_start_time])[:attendance_systems]
     end
     
     def edit_overtime_application_params

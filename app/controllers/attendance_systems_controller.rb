@@ -7,6 +7,10 @@ class AttendanceSystemsController < ApplicationController
   
   UPDATE_ERROR_MSG = "勤務登録に失敗しました、やり直してください。"
   
+  def index
+    @users = User.all
+  end
+  
   def update
     @user = User.find(params[:user_id])
     @attendance_system = AttendanceSystem.find(params[:id])
