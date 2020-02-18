@@ -26,25 +26,24 @@
         
         <tbody>
             <tr>
-              <td><%= l(@attendance_systems.worked_on, format: :short) %></td>
+              <td><%= l(@attendance_system.worked_on, format: :short) %></td>
               <td class=
-                <% if @attendance_systems.worked_on.wday == 0 %>
+                <% if @attendance_system.worked_on.wday == 0 %>
                   <%= "text-danger" %>
-                <% elsif @attendance_systems.worked_on.wday == 6 %>
+                <% elsif @attendance_system.worked_on.wday == 6 %>
                   <%= "text-primary" %>
                 <% else %>
                   <%= "text-dark" %>
                 <% end %>>
-                <%= $days_of_the_week[@attendance_systems.worked_on.wday] %>
+                <%= $days_of_the_week[@attendance_system.worked_on.wday] %>
               </td>
               <td>
-                <%= f.time_select :designated_work_end_time, {include_blank: true, default: @attendance_systems.designated_work_end_time, minute_step: 15 }, value: "%H:%M" %>
+                <%= f.time_select :designated_work_end_time, {include_blank: true, default: @user.designated_work_end_time, minute_step: 15 }, value: "%H:%M" %>
               </td>
               <td><%= f.check_box :next_day %> </td>
               <td><%= f.text_field :process, class: "form-control" %></td>
-              <td></td>
+              <td><%= f.collection_select :name, User.where(superior: true), :name, :name, :prompt => "上長を選択してください" %></td>
             </tr>
-         
         </tbody>
       </table>
     </div>

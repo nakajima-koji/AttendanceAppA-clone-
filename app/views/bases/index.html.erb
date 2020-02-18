@@ -1,0 +1,37 @@
+<% provide(:title, "Bases") %>
+<h1>拠点一覧</h1>
+
+
+<div class="row">
+  <div class="col-md-11 col-md-offset-1">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>拠点番号</th>
+          <th>拠点名</th>
+          <th>拠点種類</th>
+        </tr>
+      </thead>
+    
+      <% @bases.each do |base| %>
+      <tbody>
+        <tr>
+          <td><%= link_to "更新", edit_basis_path(base), class: "btn btn-primary btn-default" %></td>
+          <td></td>
+          <td><%= base.number %></td>
+          <td><%= base.name %></td>
+          <td><%= base.bases_type %></td>
+        </tr>
+      </tbody>
+      <% end %>
+      
+      <tfoot>
+        <tr>
+          <td colspan="5"><%= link_to "拠点情報追加", new_basis_path, class: "btn btn-primary btn-lg" %></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

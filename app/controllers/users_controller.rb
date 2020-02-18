@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info, :edit_overtime_application,:update_overtime_application]
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info,
                                         :edit_overtime_application, :update_overtime_application]
   before_action :correct_user, only: [:edit, :update]
@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   end
   
   def show
+    
     @worked_sum = @attendance_systems.where.not(started_at: nil).count
   end
 
@@ -72,11 +73,16 @@ class UsersController < ApplicationController
   end
   
   def edit_overtime_application
-    @attendance_systems = AttendanceSystem.find(params[:id])
-    @user = User.find(@attendance_systems.user_id)
+    @attendance_system = AttendanceSystem.find(params[:id])
   end
   
   def update_overtime_application
+    if @user.update_attributes(user_params)
+      flash[:success] = "残業申請をしました。"
+    else
+      flash[:danger] = "申請に失敗しました。"
+    end
+    redirect_to user_url
   end
   
   def import

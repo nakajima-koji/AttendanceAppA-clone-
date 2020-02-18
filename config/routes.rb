@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'bases/index'
+
   root 'static_pages#top'
   get '/signup', to: 'users#new'
 
@@ -19,4 +21,6 @@ Rails.application.routes.draw do
     end
     resources :attendance_systems, only: [:index, :update] 
   end
+  
+  resources :bases, only: [:index, :new, :create, :edit, :update, :destroy]
 end

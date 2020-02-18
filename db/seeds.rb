@@ -34,4 +34,6 @@ User.create!(name: "上長B",
                password_confirmation: password,
                employee_number: 3+n,
                uid: "#{1113}+#{n}")
+               
+
 end 

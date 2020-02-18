@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200217043913) do
+ActiveRecord::Schema.define(version: 20200218060548) do
 
   create_table "attendance_systems", force: :cascade do |t|
     t.date "worked_on"
@@ -23,7 +23,16 @@ ActiveRecord::Schema.define(version: 20200217043913) do
     t.string "process"
     t.string "instructer_confirmation"
     t.boolean "next_day"
+    t.datetime "plan_end_time"
     t.index ["user_id"], name: "index_attendance_systems_on_user_id"
+  end
+
+  create_table "bases", force: :cascade do |t|
+    t.string "name"
+    t.integer "number"
+    t.string "bases_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -34,8 +43,8 @@ ActiveRecord::Schema.define(version: 20200217043913) do
     t.string "password_digest"
     t.boolean "admin", default: false
     t.string "department"
-    t.datetime "basic_time", default: "2020-02-16 23:00:00"
-    t.datetime "work_time", default: "2020-02-16 22:30:00"
+    t.datetime "basic_time", default: "2020-02-17 23:00:00"
+    t.datetime "work_time", default: "2020-02-17 22:30:00"
     t.string "remember_digest"
     t.boolean "superior", default: false
     t.integer "employee_number"

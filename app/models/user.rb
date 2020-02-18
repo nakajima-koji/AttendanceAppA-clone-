@@ -71,5 +71,6 @@ class User < ApplicationRecord
     ["id", "name"]
   end
   
+  
  
 end
