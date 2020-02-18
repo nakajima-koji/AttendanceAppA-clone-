@@ -1,14 +1,14 @@
 class AttendanceSystemsController < ApplicationController
   include AttendanceSystemsHelper
   before_action :set_user, only: [:edit_one_month, :update_one_month]
-  before_action :logged_in_user, only: [:update, :edit_one_month]
-  before_action :set_one_month, only: :edit_one_month
+  before_action :logged_in_user, only: [:index, :update, :edit_one_month]
+  before_action :set_one_month, only: [:edit_one_month]
   before_action :admin_or_correct_user, only: [:update, :edit_one_month, :update_one_month]
   
   UPDATE_ERROR_MSG = "勤務登録に失敗しました、やり直してください。"
   
   def index
-    @users = User.all
+    @users = User.all.includes(:attendance_systems)
   end
   
   def update

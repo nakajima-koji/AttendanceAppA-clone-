@@ -24,17 +24,21 @@
 
 <div class="row">
   <div class="col-md-4">
-    <%= form_tag(import_users_path, multipart: true) do %>
+    <%= form_tag import_users_path, multipart: true do %>
       <div class="input-group">
         <span class="input-group-btn">
           <%= label_tag :file, "ファイルを選択", class: "btn btn-default" %>
         </span>
-          <%= file_field_tag :file, class: "field-file form-control", style: "display: none;"  %>
+          <%= file_field_tag :file, class: "field-file form-control", style: "display:none;"  %>
+        <span class="input_group_btn">
+          <%= text_field_tag :file, id="file_select", class: "form-control border file-text" %>
+        </span>  
       </div>
       <%= submit_tag "CSVをインポート", class: "btn btn-primary form-control" %>
     <% end %>
   </div>
 </div>
+
 
 
 <%= will_paginate %>

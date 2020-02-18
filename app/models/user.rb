@@ -65,8 +65,11 @@ class User < ApplicationRecord
       user.save
     end
   end
+    
   
   def self.updatable_attributes
     ["id", "name"]
   end
+  
+ 
 end

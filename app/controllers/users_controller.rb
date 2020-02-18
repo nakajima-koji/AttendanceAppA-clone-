@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   
   def index
     @users = User.paginate(page: params[:page], per_page: 20)
+    @filename =params[:file]
     if params[:name].present?
       @users = @users.get_by_name params[:name]
     end
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
       flash[:success] = "アカウント情報を更新しました。"
       redirect_to users_url
     else
-      flash[:danger] = "更新に失敗しました。"
+      flash.now[:danger] = "更新に失敗しました。"
       render :index
     end
   end
