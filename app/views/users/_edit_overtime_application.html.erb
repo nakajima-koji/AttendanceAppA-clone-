@@ -23,7 +23,7 @@
             <th>指示者確認</th>
           </tr>
         </thead>
-        
+
         <tbody>
             <tr>
               <td><%= l(@attendance_system.worked_on, format: :short) %></td>
@@ -38,7 +38,7 @@
                 <%= $days_of_the_week[@attendance_system.worked_on.wday] %>
               </td>
               <td>
-                <%= f.time_select :designated_work_end_time, {include_blank: true, default: @user.designated_work_end_time, minute_step: 15 }, value: "%H:%M" %>
+                <%= f.time_select :plan_end_time, {include_blank: true, default: @attendance_system.plan_end_time, minute_step: 15 }, value: "%H:%M" %>
               </td>
               <td><%= f.check_box :next_day %> </td>
               <td><%= f.text_field :process, class: "form-control" %></td>
