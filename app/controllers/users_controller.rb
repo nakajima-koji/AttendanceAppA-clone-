@@ -26,6 +26,7 @@ class UsersController < ApplicationController
   
   def show
     @worked_sum = @attendance_systems.where.not(started_at: nil).count
+    @attendance_system = AttendanceSystem.find(params[:id])
   end
 
   def create

@@ -85,7 +85,7 @@
     <tbody>
       <% @attendance_systems.each do |day| %>
         <tr>
-          <td><%= link_to "残業申請", edit_overtime_application_user_path(day),
+          <td><%= link_to "残業申請", edit_overtime_application_user_path(@user, day),
                   remote: true, class: "btn btn-primary btn-default" %>
           </td>
           <td><%= l(day.worked_on, format: :short) %></td>
