@@ -23,6 +23,10 @@ User.create!(name: "上長B",
              employee_number: "1113",
              uid: "3",
              superior: true)
+             
+Base.create!(name: "拠点A",
+             number: 1,
+             bases_type: "出勤")
               
 100.times do |n|
   name = Faker::Name.name
