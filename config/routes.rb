@@ -14,12 +14,17 @@ Rails.application.routes.draw do
     member do
       get 'edit_basic_info'
       patch 'update_basic_info'
-      get 'edit_overtime_application'
-      patch 'update_overtime_application'
       get 'attendance_systems/edit_one_month'
       patch 'attendance_systems/update_one_month'
     end
-    resources :attendance_systems, only: [:index, :update] 
+    resources :attendance_systems do
+      get 'index'
+      patch 'update'
+      member do
+        get 'edit_overtime_application'
+        patch 'update_overtime_application'
+      end
+    end
   end
   
   resources :bases, only: [:index, :new, :create, :edit, :update, :destroy]
